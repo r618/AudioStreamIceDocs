@@ -1,0 +1,99 @@
+::o6.2o22::
+
+-------------------------------------------------------------------------------
+Basice usage:
+-------------------------------------------------------------------------------
+- add 'AudioStreamIce' component on a GameObject in Scene
+- hit Play -> by default it should automatically start streaming SpaceStation station of SomaFM
+- check and customize remaining fields - each one has its own tooltip with help/explanation
+
+
+-------------------------------------------------------------------------------
+Basic scripting:
+-------------------------------------------------------------------------------
+- assign source to .url
+- (optionally set format if it's known)
+- call .Play(), .PauseUnpause(bool pause), and .Stop() to drive streaming/playback.
+- OnPlaybackStarted, OnPlaybackPaused, OnPlaybackStopped, OnTagChanged, and OnError Unity events are called appropriately
+- on iOS, the system is notified when tags change and TITLE/ARTIST is set to command center as now playing item. For some stations such as SomaFM I also implemented album art image /see Tags below/.
+Appropriate Unity event is also called when user interacts with Play/Pause control in Command center (there are no other active controls there).
+- please see demo scene for complete example of all of the above
+
+
+-------------------------------------------------------------------------------
+UnityWebRequest:
+-------------------------------------------------------------------------------
+- used for all networking
+- this means that all requests from within the app/editor should follow e.g. system proxy settings
+- call SetCustomRequestHeader(string key, string value) to setup any custom request headers before calling .Play(). Those will be used for initial connection/(playlist) and for all streaming.
+- For 2022 and up -> please enable non secure HTTP downloads in 2022 (and up) Player settings in order to use HTTP links in the demo
+| Go to Edit -> Project Settings -> Player -> Other Settings > Configuration and set 'Allow downloads over HTTP' to 'Always allowed'. Alternatively, use secure (HTTPS) links only.
+
+
+-------------------------------------------------------------------------------
+Supported formats/playlists:
+-------------------------------------------------------------------------------
+- decoding support is provided via OSS libraaries (see LICENSE/COPYING for each in Libs folder)
+	for MPEG streams:
+		- MPEG 1 & 2 Decoder for Layers 1, 2, & 3 via [https://github.com/naudio/NLayer + https://github.com/mono/taglib-sharp]
+	for ogg streams:
+		- Ogg|Vorbis [https://github.com/NVorbis/NVorbis]
+		- Ogg|OPUS [https://github.com/lostromb/concentus + https://github.com/lostromb/concentus.oggfile]
+
+
+
+	also with few patches already merged upstream.
+
+- if the url ends with PLS, M3U or M3U8 extension this is treated as playlist which is downloaded first and first entry from it is used as source for streaming
+
+- if the selected format is AUTODETECT [default] on .Play(), the asset tries to play MPEG first, then Vorbis and finally OPUS format,
+	except when the url ends with 'ogg', in which case it tries to play Vorbis, then OPUS and finally MPEG format.
+
+
+-------------------------------------------------------------------------------
+Tags:
+-------------------------------------------------------------------------------
+- tags changes are reported as they arrive via Unity event/s from the SHOUTcast/Icecast stream, and from files.
+All received pairs 'Tag:Value' are reported, if binary picture tag contains an (supposed) image, a Texture2D is created based on it (and displayed in the demo).
+If a station publishes StreamUrl in its metadata and it contains valid link with to an image, this is retrieved and used as track image (this is e.g. case for SomaFM)
+
+- tags ARTIST, TITLE, and APIC_ (album art) + the above mentioned image are used for now playing info on iOS.
+
+
+-------------------------------------------------------------------------------
+Pausing the playback:
+-------------------------------------------------------------------------------
+Pausing the audio currently just silences it (sets volume of the AudioSource to 0) while the download and streaming updates continue
+
+
+------------------------------------------------------------------------------
+Streaming and playback buffers:
+-------------------------------------------------------------------------------
+- the download buffer has capacity of around 10MB, after which already processsed data is being discarded
+- decoded audio is played from circular PCM buffer set to fixed length of ~15 seconds, if there's enough of decoded data in the PCM buffer, the decoder is set to sleep unless it's needed again
+(decoder activity is indicated by an asterisk next to the playback buffer in the demo scene)
+
+
+-------------------------------------------------------------------------------
+iOS:
+-------------------------------------------------------------------------------
+- on iOS for background audio to work, please
+
+	Enable Custom Background Behaviours in the Player Settings:
+		* Audio, AirPlay, PiP
+
+	- the rest of the setup is already implemented via custom app controller in 
+		Plugins/iOS/AudioStreamIceAppController.h
+		Plugins/iOS/AudioStreamIceAppController.mm
+	[for discussion about used AVAudioSession see https://developer.apple.com/library/archive/qa/qa1668/_index.html#//apple_ref/doc/uid/DTS40010209]
+
+	If the build fails due to missing link step, please add MediaPlayer.framework manually:
+		- | this is set via Inspector in 202x and later, 2019 might be missing it | -
+		-> in 2020 and later: in Inspector Import Settings for Plugins/iOS/AudioStreamIceAppController.mm, enable MediaPlayer in 'Rarely used frameworks'
+		-> in 2019: add MediaPlayer.framework in Xcode to Link Build step for UnityFramework target
+
+	- for user interaction events in iOS Command Center to work the game object with AudioStreamIce caomponent has to be named 'AudioStreamIce' - this is because UnitySendMessage calls needs a game object name to send the events to
+
+
+-------------------------------------------------------------------------------
+That's it, thank you for using AudioStreamIce !
