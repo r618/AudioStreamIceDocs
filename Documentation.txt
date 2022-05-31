@@ -82,17 +82,29 @@ iOS:
 	Enable Custom Background Behaviours in the Player Settings:
 		* Audio, AirPlay, PiP
 
-	- the rest of the setup is already implemented via custom app controller in 
-		Plugins/iOS/AudioStreamIceAppController.h
-		Plugins/iOS/AudioStreamIceAppController.mm
-	[for discussion about used AVAudioSession see https://developer.apple.com/library/archive/qa/qa1668/_index.html#//apple_ref/doc/uid/DTS40010209]
+	- the rest of the setup is already implemented via custom app controller and happens automatically
+		(iOS build needs
+			Plugins/iOS/AudioStreamIceAppController.h
+			Plugins/iOS/AudioStreamIceAppController.mm
+		)
+
+		[for discussion about used AVAudioSession see https://developer.apple.com/library/archive/qa/qa1668/_index.html#//apple_ref/doc/uid/DTS40010209]
 
 	If the build fails due to missing link step, please add MediaPlayer.framework manually:
 		- | this is set via Inspector in 202x and later, 2019 might be missing it | -
 		-> in 2020 and later: in Inspector Import Settings for Plugins/iOS/AudioStreamIceAppController.mm, enable MediaPlayer in 'Rarely used frameworks'
 		-> in 2019: add MediaPlayer.framework in Xcode to Link Build step for UnityFramework target
 
-	- for user interaction events in iOS Command Center to work the game object with AudioStreamIce caomponent has to be named 'AudioStreamIce' - this is because UnitySendMessage calls needs a game object name to send the events to
+	- for user interaction events in iOS Command Center to work the game object in the scene with AudioStreamIce caomponent has to be named 'AudioStreamIce' - this is because UnitySendMessage calls needs a game object name to send the events to
+
+
+
+-------------------------------------------------------------------------------
+Please note this asset currently doesn't support Media Controls and background running on Android OS
+[you _might_ get some leverage by commenting out onPause method of Unity player activity in Gradle build but it's
+	- not correct
+	- OS might (and will) kill the app while it's in the background
+	- breaks Unity plyaer activity in unexpected ways, so it's overall not a proper solution]
 
 
 -------------------------------------------------------------------------------
