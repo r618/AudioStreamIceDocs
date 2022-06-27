@@ -97,6 +97,8 @@ iOS:
 
 	- for user interaction events in iOS Command Center to work the game object in the scene with AudioStreamIce caomponent has to be named 'AudioStreamIce' - this is because UnitySendMessage calls needs a game object name to send the events to
 
+!Note: the app controller supports OOTB only new/er Unity (~2021) Xcode projects
+It's necessary to fix its code (i.e. set the audio session) manually when building with earlier (~2019) Unity versions.
 
 
 -------------------------------------------------------------------------------
