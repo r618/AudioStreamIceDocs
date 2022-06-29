@@ -40,15 +40,23 @@ Supported formats/playlists:
 		- Ogg|Vorbis [https://github.com/NVorbis/NVorbis]
 		- Ogg|OPUS [https://github.com/lostromb/concentus + https://github.com/lostromb/concentus.oggfile]
 
-
-
 	also with few patches already merged upstream.
 
-- if the url ends with PLS, M3U or M3U8 extension this is treated as playlist which is downloaded first and first entry from it is used as source for streaming
+
+- if the url ends with one of the PLS, M3U or M3U8 extensions this is treated as playlist which is downloaded first
+	- if 'Retrieve All Playlist Items' checkbox is enabled, user code is notified via an event of all items locations in the playlist and the operation stops (*)
+	otherwise (default) the first entry from the playlist is used as source for streaming and is played immediately.
 
 - if the selected format is AUTODETECT [default] on .Play(), the asset tries to play MPEG first, then Vorbis and finally OPUS format,
 	except when the url ends with 'ogg', in which case it tries to play Vorbis, then OPUS and finally MPEG format.
 
+
+(*)
+	asset tries to determine all items specified in PLS and M3U/8 playlists based on [https://en.wikipedia.org/wiki/PLS_(file_format)] resp. [https://en.wikipedia.org/wiki/M3U]
+	all PLS source entries are returned as-is,
+	if an entry in M3U/8 playlist is an existing directory on local filesystem, the content of this directory is returned, non-recursively (ignores nested directories),
+	ignoring any entries which are another m3u playlist/s, and adding only files with .mp3 and .ogg extensions.
+	Please see dmeo scene where this can be enabled/disabled.
 
 -------------------------------------------------------------------------------
 Tags:
