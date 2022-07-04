@@ -1,7 +1,7 @@
-::o6.2o22::
+::o7.2o22::
 
 -------------------------------------------------------------------------------
-Basice usage:
+Basic usage:
 -------------------------------------------------------------------------------
 - add 'AudioStreamIce' component on a GameObject in Scene
 - hit Play -> by default it should automatically start streaming SpaceStation station of SomaFM
@@ -10,17 +10,23 @@ Basice usage:
 -------------------------------------------------------------------------------
 Basic scripting:
 -------------------------------------------------------------------------------
-- either assign a source to .url and call .Play()
+- either assign a source to .url and call .Play(),
 - or call .Play(url) - this won't modify .url on the component (used also in demo to play individual playlist entry while original playlist location is not modified)
-- final resolved url which will be actually played is stored in public .url_final
+- final url which will be actually played is stored in public .url_final once resolved
 - (optionally set format if it's known)
--  call .PauseUnpause(bool pause), and .Stop() to drive streaming/playback.
-- OnPlaybackStarted, OnPlaybackPaused, OnPlaybackStopped, OnTagChanged, and OnError Unity events are called appropriately
+- call .PauseUnpause(bool pause), and .Stop() to drive streaming/playback.
+- OnPlaybackStarted, OnPlaybackPaused, OnPlaybackStopped, OnTagChanged, and OnError Unity events are called appropriately (*)
 - on iOS, the system is notified when tags change and TITLE/ARTIST is set to command center as now playing item. For some stations such as SomaFM I also implemented album art image /see Tags below/.
 Appropriate Unity event is also called when user interacts with Play/Pause control in Command center (there are no other active controls there).
+
+NOTE:
+	- all calls are delayed by one frame
+	- .Play()/.Play(url) is succesfully scheduled only if the component is in stopped state (IsRunning is false)
+(*)
+	- you can call other component's method from event handlers
+
 - please see demo scene for complete example of all of the above
-
-
+	
 -------------------------------------------------------------------------------
 UnityWebRequest:
 -------------------------------------------------------------------------------
