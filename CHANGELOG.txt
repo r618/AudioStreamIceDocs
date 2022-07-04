@@ -2,3 +2,8 @@
 V 1.0 062022 ###
 Internet/cloud/local media streaming
 iOS custom app controller
+
+===========================================
+V 1.1 072022 
+- added playlist items browsing support
+- fixed local mp3 files tags
