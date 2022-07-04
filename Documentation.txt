@@ -21,7 +21,7 @@ Appropriate Unity event is also called when user interacts with Play/Pause contr
 
 NOTE:
 	- all calls are delayed by one frame
-	- .Play()/.Play(url) is succesfully scheduled only if the component is in stopped state (IsRunning is false)
+	- .Play()/.Play(url)/.PauseUnpause() is succesfully executed only if the component is in stopped state (IsRunning is false) one frame later
 (*)
 	- you can call other component's method from event handlers
 
