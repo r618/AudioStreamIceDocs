@@ -7,4 +7,4 @@ iOS custom app controller
 V 1.1 072022 
 - added playlist items browsing support
 - fixed local mp3 files tags
-- fixed iOS platform Control Center metadata
+- fixed iOS platform Control Center + metadata
