@@ -4,8 +4,11 @@
 Basic usage:
 -------------------------------------------------------------------------------
 - add 'AudioStreamIce' component on a GameObject in Scene
-- hit Play -> by default it should automatically start streaming SpaceStation station of SomaFM
+- hit Play -> by default it should automatically start streaming SpaceStation station of SomaFM /*
 - check and customize remaining fields - each one has its own tooltip with help/explanation
+
+/* For HTTP (non secure links) in Unity 2022.1 and up, please also set 'Allow downloads over HTTP' to 'Always allowed' in Player Settings
+- demo scene displays a warning if this is not enabled
 
 -------------------------------------------------------------------------------
 Basic scripting:
