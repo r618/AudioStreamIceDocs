@@ -8,3 +8,4 @@ V 1.1 072022
 - added playlist items browsing support
 - fixed local mp3 files tags
 - fixed iOS platform Control Center + metadata
+- also fixed too tight init/download restriction
