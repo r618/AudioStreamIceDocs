@@ -5,7 +5,7 @@ Basic usage:
 -------------------------------------------------------------------------------
 - add 'AudioStreamIce' component on a GameObject in Scene
 - hit Play -> by default it should automatically start streaming SpaceStation station of SomaFM /*
-- check and customize remaining fields - each one has its own tooltip with help/explanation
+- check and customise remaining fields - each one has its own tooltip with help/explanation
 
 /* For HTTP (non secure links) in Unity 2022.1 and up, please also set 'Allow downloads over HTTP' to 'Always allowed' in Player Settings
 - demo scene displays a warning if this is not enabled
@@ -24,7 +24,7 @@ Appropriate Unity event is also called when user interacts with Play/Pause contr
 
 NOTE:
 	- all calls are delayed by one frame
-	- .Play()/.Play(url)/.PauseUnpause() is succesfully executed only if the component is in stopped state (IsRunning is false) one frame later
+	- .Play()/.Play(url)/.PauseUnpause() is successfully executed only if the component is in stopped state (IsRunning is false) one frame later
 (*)
 	- you can call other component's method from event handlers
 
@@ -43,7 +43,7 @@ UnityWebRequest:
 -------------------------------------------------------------------------------
 Supported formats:
 -------------------------------------------------------------------------------
-- decoding support is provided via OSS libraaries (see LICENSE/COPYING for each in Libs folder)
+- decoding support is provided via OSS libraries (see LICENSE/COPYING for each in Libs folder)
 	for MPEG streams:
 		- MPEG 1 & 2 Decoder for Layers 1, 2, & 3 via [https://github.com/naudio/NLayer + https://github.com/mono/taglib-sharp]
 	for ogg streams:
@@ -101,7 +101,7 @@ Pausing the audio currently just silences it (sets volume of the AudioSource to 
 ------------------------------------------------------------------------------
 Streaming and playback buffers:
 -------------------------------------------------------------------------------
-- the download buffer has capacity of around 10MB, after which already processsed data is being discarded
+- the download buffer has capacity of around 10MB, after which already processed data is being discarded
 - decoded audio is played from circular PCM buffer set to fixed length of ~15 seconds, if there's enough of decoded data in the PCM buffer, the decoder is set to sleep unless it's needed again
 (decoder activity is indicated by an asterisk next to the playback buffer in the demo scene)
 
@@ -127,18 +127,26 @@ iOS:
 		-> in 2020 and later: in Inspector Import Settings for Plugins/iOS/AudioStreamIceAppController.mm, enable MediaPlayer in 'Rarely used frameworks'
 		-> in 2019: add MediaPlayer.framework in Xcode to Link Build step for UnityFramework target
 
-	- for user interaction events in iOS Command Center to work the game object in the scene with AudioStreamIce caomponent has to be named 'AudioStreamIce' - this is because UnitySendMessage calls needs a game object name to send the events to
+	- for user interaction events in iOS Command Center to work the game object in the scene with AudioStreamIce component has to be named 'AudioStreamIce' - this is because UnitySendMessage calls needs a game object name to send the events to
 
 !Note: the app controller supports OOTB only new/er Unity (~2021) Xcode projects
 It's necessary to fix its code (i.e. set the audio session) manually when building with earlier (~2019) Unity versions.
 
 
 -------------------------------------------------------------------------------
-Please note this asset currently doesn't support Media Controls and background running on Android OS
-[you _might_ get some leverage by commenting out onPause method of Unity player activity in Gradle build but it's
-	- not correct
-	- OS might (and will) kill the app while it's in the background
-	- breaks Unity plyaer activity in unexpected ways, so it's overall not a proper solution]
+Android:
+-------------------------------------------------------------------------------
+- Android is much more fragmented and there's no unified way of displaying e.g. Media Controls for all currently existing widely used Android versions, compared to iOS, so this is not supported as of now.
+- to keep an activity / application running when user is not interacting with it, i.e. on the block screen or in the background
+various OS versions provide various ways to configure this for a concrete application - please refer to your Android version on how to do this.
+
+- to keep Unity Unity player main activity running at all times, please
+	- export project when doing a build
+	- in resulting Gradle project, modify UnityPlayerActivity.java:
+		- prevent Unity player to pause by e.g. commenting out 
+		- // mUnityPlayer.pause(); in 'onPause()' activity method
+
+	- Unity player will now not stop its update loop when it would otherwise - combined with the above this is enough for the asset to perform even when the activity is not active.
 
 
 -------------------------------------------------------------------------------
