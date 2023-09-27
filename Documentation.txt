@@ -1,4 +1,4 @@
-::o7.2o22::
+::o9.2o23::
 
 -------------------------------------------------------------------------------
 Basic usage:
@@ -31,10 +31,12 @@ NOTE:
 - please see demo scene for complete example of all of the above
 	
 -------------------------------------------------------------------------------
-UnityWebRequest:
+UnityWebRequest/
+System.Net.HttpWebRequest:
 -------------------------------------------------------------------------------
-- used for all networking
-- this means that all requests from within the app/editor should follow e.g. system proxy settings
+- UnityWebRequest is used for all communication, except when attempting to resolve an Url redirect for initial connection -
+for that platform System.Net.HttpWebRequest is used - this is the deafult behaviour which can be turned off via 'attemptToResolveUrlRedirection'
+- UnityWebRequest and System.Net.HttpWebRequest should both follow system proxy settings
 - call SetCustomRequestHeader(string key, string value) to setup any custom request headers before calling .Play(). Those will be used for initial connection/(playlist) and for all streaming.
 - For 2022 and up -> please enable non secure HTTP downloads in 2022 (and up) Player settings in order to use HTTP links in the demo
 | Go to Edit -> Project Settings -> Player -> Other Settings > Configuration and set 'Allow downloads over HTTP' to 'Always allowed'. Alternatively, use secure (HTTPS) links only.
