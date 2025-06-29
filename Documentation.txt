@@ -47,14 +47,14 @@ Supported formats:
 -------------------------------------------------------------------------------
 - decoding support is provided via OSS libraries (see LICENSE/COPYING for each in Libs folder)
 	for MPEG streams:
-		- MPEG 1 & 2 Decoder for Layers 1, 2, & 3 via [https://github.com/naudio/NLayer + https://github.com/mono/taglib-sharp]
+		- MPEG 1 & 2 Decoder for Layers 1, 2, & 3 via [https://github.com/r618/MP3Sharp + https://github.com/mono/taglib-sharp]
 	for ogg streams:
 		- Ogg|Vorbis [https://github.com/NVorbis/NVorbis]
 		- Ogg|OPUS [https://github.com/lostromb/concentus + https://github.com/lostromb/concentus.oggfile]
 
 	also with few patches already merged upstream.
 
-- if the selected format is AUTODETECT [default] on .Play(), the asset tries to play MPEG first, then Vorbis and finally OPUS format,
+- if the selected format is AUTODETECT [default] on .Play(), the asset tries to play MPEG first, then Ogg/Vorbis and finally Ogg/OPUS format,
 	except when the url ends with 'ogg', in which case it tries to play Vorbis, then OPUS and finally MPEG format.
 
 
