@@ -37,3 +37,9 @@ Demo application/scene:
 
 Some servers don't produce continuos stream of all content/tracks, but finish each track individually instead before starting new one -
 - this is currently problematic for Ogg/OPUS codec and is worked around in demo scene such that the stream is restarted in `OnPlaybackStopped` event after previous track is finished.
+
+===========================================
+1.4.1
+- fixed incorrect url resolving for local media/files (don't use HttpHandler for links/urls not pointing to network via "http"..)
+- `Il2CppSetOptionAttribute` attributes used for IL2CPP builds are enabled by default - necessary setup steps on how to use them properly were added to initial import README doc
+- submitted with Unity 2021.3.45f2
