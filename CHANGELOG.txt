@@ -48,5 +48,5 @@ Some servers don't produce continuos stream of all content/tracks, but finish ea
 ===========================================
 1.4.2
 - fixed default UnityWebRequest User-Agent not being accepted by some internet host(s).
-- fixed bugs and unneeded allocations in several places
+- fixed couple of bugs related to streaming and unneeded allocations in several places
 - submitted with Unity 2022.3.62
