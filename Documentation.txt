@@ -35,7 +35,7 @@ UnityWebRequest/
 System.Net.HttpWebRequest:
 -------------------------------------------------------------------------------
 - UnityWebRequest is used for all communication, except when attempting to resolve an Url redirect for initial connection -
-for that platform System.Net.HttpWebRequest is used - this is the deafult behaviour which can be turned off via 'attemptToResolveUrlRedirection'
+for that platform System.Net.HttpWebRequest is used - this is the default behaviour which can be turned off via 'attemptToResolveUrlRedirection'
 - UnityWebRequest and System.Net.HttpWebRequest should both follow system proxy settings
 - call SetCustomRequestHeader(string key, string value) to setup any custom request headers before calling .Play(). Those will be used for initial connection/(playlist) and for all streaming.
 - For 2022 and up -> please enable non secure HTTP downloads in 2022 (and up) Player settings in order to use HTTP links in the demo
@@ -88,8 +88,8 @@ Please see demo scene where it's possible to e.g. play each individual playlist 
 Tags:
 -------------------------------------------------------------------------------
 - tags changes are reported as they arrive via Unity event/s from the SHOUTcast/Icecast stream, and from files.
-All received pairs 'Tag:Value' are reported, if binary picture tag contains an (supposed) image, a Texture2D is created based on it (and displayed in the demo).
-If a station publishes StreamUrl in its metadata and it contains valid link with to an image, this is retrieved and used as track image (this is e.g. case for SomaFM)
+All received pairs 'Tag:Value' are reported, if binary picture tag contains a supposed image, a Texture2D is created based on it (and displayed in the demo).
+If a station publishes StreamUrl in its metadata and it contains a valid link to an image, this is retrieved and used as track image (this is e.g. case for SomaFM)
 
 - tags ARTIST, TITLE, and APIC_ (album art) + the above mentioned image are used for now playing info on iOS.
 
@@ -131,7 +131,7 @@ iOS:
 
 	- for user interaction events in iOS Command Center to work the game object in the scene with AudioStreamIce component has to be named 'AudioStreamIce' - this is because UnitySendMessage calls needs a game object name to send the events to
 
-!Note: the app controller supports OOTB only new/er Unity (~2021) Xcode projects
+!Note: the app controller supports OOTB only newer Unity (~2021) Xcode projects
 It's necessary to fix its code (i.e. set the audio session) manually when building with earlier (~2019) Unity versions.
 
 

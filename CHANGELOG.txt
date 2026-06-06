@@ -36,7 +36,7 @@ Demo application/scene:
 -- demo app/scene has more responsive layout
 -- added bunch of various online streaming formats/examples
 
-Some servers don't produce continuos stream of all content/tracks, but finish each track individually instead before starting new one -
+Some servers don't produce continuous stream of all content/tracks, but finish each track individually instead before starting new one -
 - this is currently problematic for Ogg/OPUS codec and is worked around in demo scene such that the stream is restarted in `OnPlaybackStopped` event after previous track is finished.
 
 ===========================================
