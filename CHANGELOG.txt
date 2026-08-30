@@ -50,3 +50,7 @@ Some servers don't produce continuos stream of all content/tracks, but finish ea
 - fixed default UnityWebRequest User-Agent not being accepted by some internet host(s).
 - fixed couple of bugs related to streaming and unneeded allocations in several places
 - submitted with Unity 2022.3.62
+
+===========================================
+1.4.3
+- compatible with New Input System (no legacy Input Manager APIs are used by the package/demo, so it works with either input backend, or both)
