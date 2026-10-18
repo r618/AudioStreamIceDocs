@@ -58,6 +58,7 @@ this is currently problematic for the Ogg/OPUS codec and is worked around in the
 
 - compatible with the New Input System (no legacy Input Manager APIs are used by the package/demo, so it works with either input backend, or both)
 
+
 ## 1.4.4
 
 ### Added
@@ -84,3 +85,11 @@ this is currently problematic for the Ogg/OPUS codec and is worked around in the
 ### Decoder/playback
 
 - more performant, with better capacity estimates
+
+
+## 1.4.5
+
+### Fixed
+- track changes/chaining for Ogg/OPUS streams
+- Ogg/OPUS decoder uses clean-room implementation subset of Ogg spec (RFC 3533) for this streaming asset only
+- removed Concentus.oggfile library from the asset
